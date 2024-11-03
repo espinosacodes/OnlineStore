@@ -2,11 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
     loadProducts();
 
     document.getElementById('logout').addEventListener('click', () => {
-        window.location.href = '/';
+        localStorage.removeItem('token'); // Elimina el token de autenticación, si estás usando uno
+        window.location.href = '/'; // Redirige al usuario a la página principal
     });
+});
 
-    async function loadProducts() {
+async function loadProducts() {
+    try {
         const response = await fetch('/api/products');
+        if (!response.ok) {
+            throw new Error('Error al cargar los productos');
+        }
         const products = await response.json();
 
         const productList = document.getElementById('productList');
@@ -23,5 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             productList.appendChild(productItem);
         });
+    } catch (error) {
+        console.error(error);
+        alert('Hubo un problema al cargar la lista de productos');
     }
-});
+}
