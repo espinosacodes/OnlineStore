@@ -1,24 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const productController = require('../controllers/productController');
-
 const fs = require('fs');
 const path = require('path');
 
 const productsPath = path.join(__dirname, '../models/products.json');
 
-// Función para leer el archivo de productos
+// Función para leer productos
 function readProducts() {
     const data = fs.readFileSync(productsPath);
     return JSON.parse(data);
 }
 
-// Función para escribir en el archivo de productos
+// Función para escribir productos
 function writeProducts(products) {
     fs.writeFileSync(productsPath, JSON.stringify(products, null, 2));
 }
 
-// Ruta para obtener la lista de productos
+// Ruta para obtener productos
 router.get('/', (req, res) => {
     const products = readProducts();
     res.json(products);
@@ -35,7 +33,6 @@ router.post('/', (req, res) => {
     const products = readProducts();
     const newProduct = { id: products.length + 1, name, description, price, quantity };
     products.push(newProduct);
-
     writeProducts(products);
 
     res.status(201).json({ message: 'Producto agregado exitosamente' });

@@ -1,20 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
     loadProducts();
 
+    // Evento para el botón de cerrar sesión
     document.getElementById('logout').addEventListener('click', () => {
-        localStorage.removeItem('token'); // Elimina el token de autenticación, si estás usando uno
-        window.location.href = '/'; // Redirige al usuario a la página principal
+        localStorage.removeItem('token'); // Elimina el token de autenticación
+        window.location.href = '/'; // Redirige al inicio
     });
 
-    document.getElementById('addProductForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-
+    // Evento para el botón de agregar producto
+    document.getElementById('addProduct').addEventListener('click', async () => {
         const name = document.getElementById('productName').value;
         const description = document.getElementById('productDescription').value;
-        const price = parseFloat(document.getElementById('productPrice').value);
-        const quantity = parseInt(document.getElementById('productQuantity').value);
+        const price = document.getElementById('productPrice').value;
+        const quantity = document.getElementById('productQuantity').value;
 
-        if (!name || !description || isNaN(price) || isNaN(quantity)) {
+        if (!name || !description || !price || !quantity) {
             alert('Todos los campos son obligatorios');
             return;
         }
@@ -22,31 +22,34 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('/api/products', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, description, price, quantity })
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, description, price, quantity }),
             });
 
-            if (!response.ok) {
-                throw new Error('Error al agregar el producto');
+            if (response.ok) {
+                alert('Producto agregado exitosamente');
+                loadProducts(); // Recargar la lista de productos
+            } else {
+                alert('Error al agregar el producto');
             }
-
-            alert('Producto agregado exitosamente');
-            loadProducts(); // Recargar la lista de productos
         } catch (error) {
-            console.error(error);
-            alert('Hubo un problema al agregar el producto');
+            console.error('Error:', error);
+            alert('Error al agregar el producto');
         }
     });
 });
 
+// Función para cargar la lista de productos
 async function loadProducts() {
     try {
         const response = await fetch('/api/products');
         if (!response.ok) {
             throw new Error('Error al cargar los productos');
         }
-        const products = await response.json();
 
+        const products = await response.json();
         const productList = document.getElementById('productList');
         productList.innerHTML = ''; // Limpiar la lista antes de cargar los productos
 
@@ -62,7 +65,7 @@ async function loadProducts() {
             productList.appendChild(productItem);
         });
     } catch (error) {
-        console.error(error);
+        console.error('Error al cargar los productos:', error);
         alert('Hubo un problema al cargar la lista de productos');
     }
 }

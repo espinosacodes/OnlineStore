@@ -7,29 +7,22 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Panel de Administración</h1>
-    <button id="logout">Cerrar sesión</button>
-    
-    <h2>Agregar Producto</h2>
-    <form id="addProductForm">
-        <label for="productName">Nombre del producto</label>
-        <input type="text" id="productName" placeholder="Nombre del producto" required>
-        
-        <label for="productDescription">Descripción</label>
-        <input type="text" id="productDescription" placeholder="Descripción" required>
-        
-        <label for="productPrice">Precio</label>
-        <input type="number" id="productPrice" placeholder="Precio" required>
-        
-        <label for="productQuantity">Cantidad</label>
-        <input type="number" id="productQuantity" placeholder="Cantidad" required>
-        
-        <button type="submit">Agregar Producto</button>
-    </form>
-    
-    <h2>Lista de Productos</h2>
-    <div id="productList"></div>
+    <div class="container" id="adminPanel">
+        <h1>Panel de Administración</h1>
+        <button id="logout">Cerrar sesión</button>
 
+        <h2>Agregar Producto</h2>
+        <div id="productForm">
+            <input type="text" id="productName" placeholder="Nombre del producto">
+            <input type="text" id="productDescription" placeholder="Descripción">
+            <input type="number" id="productPrice" placeholder="Precio">
+            <input type="number" id="productQuantity" placeholder="Cantidad">
+            <button id="addProduct">Agregar Producto</button>
+        </div>
+
+        <h2>Lista de Productos</h2>
+        <div id="productList"></div>
+    </div>
     <script src="admin.js"></script>
 </body>
 </html>

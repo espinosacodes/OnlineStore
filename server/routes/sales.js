@@ -4,43 +4,36 @@ const fs = require('fs');
 const path = require('path');
 
 const salesPath = path.join(__dirname, '../models/sales.json');
+const productsPath = path.join(__dirname, '../models/products.json');
 
-// Función para leer el archivo de ventas
+// Función para leer las ventas
 function readSales() {
     const data = fs.readFileSync(salesPath);
     return JSON.parse(data);
 }
 
-// Función para escribir en el archivo de ventas
+// Función para guardar ventas
 function writeSales(sales) {
     fs.writeFileSync(salesPath, JSON.stringify(sales, null, 2));
 }
 
 // Ruta para realizar una compra
 router.post('/', (req, res) => {
-    const { items } = req.body;
+    const { cart } = req.body;
+    const products = JSON.parse(fs.readFileSync(productsPath));
 
-    if (!items || items.length === 0) {
-        return res.status(400).json({ message: 'El carrito está vacío' });
-    }
+    const items = cart.map(productId => products.find(p => p.id === productId));
+    const total = items.reduce((sum, item) => sum + item.price, 0);
 
     const sales = readSales();
-    const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-    const newSale = {
-        id: sales.length + 1,
-        date: new Date().toISOString(),
-        items,
-        total,
-    };
-
+    const newSale = { id: sales.length + 1, total, items };
     sales.push(newSale);
     writeSales(sales);
 
-    res.status(201).json({ message: 'Compra realizada exitosamente' });
+    res.status(201).json({ message: 'Compra realizada exitosamente', sale: newSale });
 });
 
-// Ruta para obtener el historial de compras
+// Ruta para ver el historial de compras
 router.get('/history', (req, res) => {
     const sales = readSales();
     res.json(sales);
