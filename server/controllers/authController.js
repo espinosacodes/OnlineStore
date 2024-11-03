@@ -22,15 +22,17 @@ exports.register = (req, res) => {
 };
 
 // Inicio de sesión
+// authController.js
 exports.login = (req, res) => {
     const { username, password } = req.body;
-    const users = readJSON('./models/users.json');
-    const user = users.find(u => u.username === username);
-    
-    if (!user || !bcrypt.compareSync(password, user.password)) {
-        return res.status(401).json({ message: 'Invalid credentials' });
-    }
+    const users = readJSON('../models/users.json');
 
-    const token = jwt.sign({ username: user.username, role: user.role }, SECRET_KEY, { expiresIn: '1h' });
-    res.json({ token });
+    const user = users.find(user => user.username === username);
+    if (!user) return res.status(400).json({ message: 'Invalid username or password' });
+
+    const validPassword = bcrypt.compareSync(password, user.password);
+    if (!validPassword) return res.status(400).json({ message: 'Invalid username or password' });
+
+    const token = jwt.sign({ id: user.username, role: user.role }, SECRET_KEY, { expiresIn: '1h' });
+    res.json({ message: 'Login successful', token, role: user.role });
 };

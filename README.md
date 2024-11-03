@@ -1,9 +1,15 @@
 # OnlineStore
 
+install
+```
+npm install cors
+
+```
+
 run with 
-
 ```
-touch models/products.json
+node server/app.js
 ```
 
-http://localhost:3000/api/products
+and open:
+http://localhost:3000/cliente/
