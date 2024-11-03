@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <script src="admin.js" defer></script>
+</head>
+<body>
+    <h1>Panel de Administración</h1>
+    <button id="logout">Cerrar sesión</button>
+
+    <h2>Agregar Producto</h2>
+    <form id="addProductForm">
+        Nombre del producto: <input type="text" id="productName" required>
+        Descripción: <input type="text" id="productDescription" required>
+        Precio: <input type="number" id="productPrice" required>
+        Cantidad: <input type="number" id="productQuantity" required>
+        <button type="submit">Agregar Producto</button>
+    </form>
+
+    <h2>Lista de Productos</h2>
+    <div id="productList"></div>
+</body>
+</html>

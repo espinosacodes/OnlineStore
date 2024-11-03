@@ -1,38 +1,37 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 const fs = require('fs');
-
+const path = require('path');
+const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'your_secret_key';
 
-// Lee y guarda los datos en JSON
-const readJSON = (file) => JSON.parse(fs.readFileSync(file));
-const writeJSON = (file, data) => fs.writeFileSync(file, JSON.stringify(data));
-
-// Registro
-exports.register = (req, res) => {
-    const { username, password, role } = req.body;
-    const users = readJSON('./models/users.json');
-    if (users.find(user => user.username === username)) return res.status(400).json({ message: 'User already exists' });
-
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    users.push({ username, password: hashedPassword, role });
-    writeJSON('./models/users.json', users);
-
-    res.json({ message: 'User registered' });
+// Función para leer JSON
+const readJSON = (fileName) => {
+    return JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'models', fileName)));
 };
 
-// Inicio de sesión
-// authController.js
+// Función para escribir JSON
+const writeJSON = (fileName, data) => {
+    fs.writeFileSync(path.join(__dirname, '..', 'models', fileName), JSON.stringify(data, null, 2));
+};
+
+// Función para registrar usuario
+exports.register = (req, res) => {
+    const { username, password, role } = req.body;
+    const users = readJSON('users.json');
+    users.push({ username, password, role });
+    writeJSON('users.json', users);
+    res.json({ message: 'Usuario registrado' });
+};
+
+// Función para el login
 exports.login = (req, res) => {
     const { username, password } = req.body;
-    const users = readJSON('../models/users.json');
+    const users = readJSON('users.json');
+    const user = users.find(u => u.username === username && u.password === password);
 
-    const user = users.find(user => user.username === username);
-    if (!user) return res.status(400).json({ message: 'Invalid username or password' });
+    if (!user) {
+        return res.status(401).json({ message: 'Credenciales incorrectas' });
+    }
 
-    const validPassword = bcrypt.compareSync(password, user.password);
-    if (!validPassword) return res.status(400).json({ message: 'Invalid username or password' });
-
-    const token = jwt.sign({ id: user.username, role: user.role }, SECRET_KEY, { expiresIn: '1h' });
-    res.json({ message: 'Login successful', token, role: user.role });
+    const token = jwt.sign({ username: user.username, role: user.role }, SECRET_KEY);
+    res.json({ message: 'Login exitoso', token, role: user.role });
 };

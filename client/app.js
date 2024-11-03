@@ -1,3 +1,27 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const path = require('path');
+
+const authRoutes = require('./routes/auth');
+const productRoutes = require('./routes/products');
+const salesRoutes = require('./routes/sales');
+
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+
+// Configura Express para servir archivos estáticos desde la carpeta client
+app.use('/cliente', express.static(path.join(__dirname, '../client')));
+
+// Configura tus rutas de la API
+app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/sales', salesRoutes);
+
+const PORT = 3000;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
 
 // Mostrar formulario de registro
 function showRegisterForm() {
@@ -90,3 +114,36 @@ function showProducts() {
     })
     .catch(error => console.error('Error fetching products:', error));
 }
+
+
+
+// Login handler en tu JavaScript del cliente
+document.getElementById('loginForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    fetch('http://localhost:3000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.token) {
+            localStorage.setItem('token', data.token);  // Guarda el token
+            localStorage.setItem('role', data.role);    // Guarda el rol del usuario
+            alert('Login exitoso');
+
+            // Redirige según el rol
+            if (data.role === 'Administrador') {
+                window.location.href = '/client/admin.html';  // Página del administrador
+            } else if (data.role === 'Cliente') {
+                window.location.href = '/client/customer.html';  // Página del cliente
+            }
+        } else {
+            alert('Error en el login');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});

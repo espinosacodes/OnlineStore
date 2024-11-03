@@ -1,24 +1,43 @@
 const fs = require('fs');
 const path = require('path');
-const { verifyToken } = require('../middleware/authMiddleware');
+const productsPath = path.join(__dirname, '../models/products.json');
 
-// Leer y escribir JSON con rutas absolutas
-const readJSON = (file) => JSON.parse(fs.readFileSync(path.join(__dirname, file)));
-const writeJSON = (file, data) => fs.writeFileSync(path.join(__dirname, file), JSON.stringify(data, null, 2));
+// Función para leer los productos
+function readProducts() {
+    const data = fs.readFileSync(productsPath);
+    return JSON.parse(data);
+}
 
-// Modifica las funciones para usar las nuevas rutas
+// Función para escribir productos
+function writeProducts(products) {
+    fs.writeFileSync(productsPath, JSON.stringify(products, null, 2));
+}
+
+// Controlador para obtener todos los productos
 exports.getProducts = (req, res) => {
-    const products = readJSON('../models/products.json');
+    const products = readProducts();
     res.json(products);
 };
 
+// Controlador para agregar un nuevo producto
 exports.addProduct = (req, res) => {
-    const products = readJSON('../models/products.json');
     const { name, description, price, quantity } = req.body;
-    products.push({ name, description, price, quantity });
-    writeJSON('../models/products.json', products);
-    res.json({ message: 'Product added' });
+
+    if (!name || !description || !price || !quantity) {
+        return res.status(400).json({ message: 'Todos los campos son requeridos' });
+    }
+
+    const products = readProducts();
+    const newProduct = {
+        id: products.length + 1,
+        name,
+        description,
+        price,
+        quantity,
+    };
+
+    products.push(newProduct);
+    writeProducts(products);
+
+    res.status(201).json({ message: 'Producto agregado exitosamente' });
 };
-
-
-

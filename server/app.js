@@ -1,27 +1,42 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const path = require('path');
 const cors = require('cors');
-
-const authRoutes = require('./routes/auth');
-const productRoutes = require('./routes/products');
-const salesRoutes = require('./routes/sales');
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
-// Configuración para servir archivos estáticos desde la carpeta 'client'
-app.use('/cliente', express.static('client'));
+// Rutas de API
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/products', require('./routes/products'));
+app.use('/api/sales', require('./routes/sales'));
 
-// Rutas de la API
-app.use('/api/auth', authRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/sales', salesRoutes);
+// Sirviendo archivos estáticos desde la carpeta "client"
+app.use(express.static(path.join(__dirname, '../client')));
 
-// Redirigir la ruta raíz al cliente
+// Ruta principal para redirigir a "index.html" si se accede a la raíz
 app.get('/', (req, res) => {
-    res.redirect('/cliente');
+    res.sendFile(path.join(__dirname, '../client', 'index.html'));
 });
 
-const PORT = 3000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+// Rutas específicas para acceder a las páginas de cliente y administrador
+app.get('/cliente/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client', 'admin.html'));
+});
+
+//TODO:  revisar creo que esta ya se puede borrar 
+app.get('/cliente/customer', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client', 'customer.html'));
+});
+
+// Si accedes a '/cliente', servirá 'customer.html' desde el cliente
+app.get('/cliente', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client', 'customer.html'));
+});
+
+// Iniciando el servidor en el puerto 3000
+app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
+});
+
+
