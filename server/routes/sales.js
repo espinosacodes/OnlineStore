@@ -17,16 +17,42 @@ function writeSales(sales) {
     fs.writeFileSync(salesPath, JSON.stringify(sales, null, 2));
 }
 
+// Función para leer productos
+function readProducts() {
+    const data = fs.readFileSync(productsPath);
+    return JSON.parse(data);
+}
+
+// Función para guardar productos
+function writeProducts(products) {
+    fs.writeFileSync(productsPath, JSON.stringify(products, null, 2));
+}
+
 // Ruta para realizar una compra
 router.post('/', (req, res) => {
     const { cart } = req.body;
-    const products = JSON.parse(fs.readFileSync(productsPath));
+    let products = readProducts();
 
-    const items = cart.map(productId => products.find(p => p.id === productId));
-    const total = items.reduce((sum, item) => sum + item.price, 0);
+    let total = 0;
+    const items = cart.map(cartItem => {
+        const product = products.find(p => p.id === cartItem.id);
+        if (!product || product.quantity < cartItem.quantity) {
+            throw new Error(`No hay suficiente stock de ${product.name}`);
+        }
+        total += product.price * cartItem.quantity;
+        product.quantity -= cartItem.quantity; // Actualizar el stock
+        return {
+            name: product.name,
+            quantity: cartItem.quantity,
+            price: product.price
+        };
+    });
+
+    // Actualizar el stock de productos
+    writeProducts(products);
 
     const sales = readSales();
-    const newSale = { id: sales.length + 1, total, items };
+    const newSale = { id: sales.length + 1, total, items, date: new Date() };
     sales.push(newSale);
     writeSales(sales);
 

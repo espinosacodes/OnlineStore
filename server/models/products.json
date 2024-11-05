@@ -11,6 +11,13 @@
     "name": "banano",
     "description": "una fruta de banano",
     "price": "3000",
-    "quantity": "10"
+    "quantity": 9
+  },
+  {
+    "id": 3,
+    "name": "yuca",
+    "description": "yuca es un tuberculo",
+    "price": "5000",
+    "quantity": 2
   }
 ]

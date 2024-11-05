@@ -18,5 +18,70 @@
         "quantity": "5"
       }
     ]
+  },
+  {
+    "id": 2,
+    "total": 4000,
+    "items": [
+      {
+        "name": "banano",
+        "quantity": 1,
+        "price": "3000"
+      },
+      {
+        "name": "mango",
+        "quantity": 1,
+        "price": "1000"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "total": 4000,
+    "items": [
+      {
+        "name": "banano",
+        "quantity": 1,
+        "price": "3000"
+      },
+      {
+        "name": "mango",
+        "quantity": 1,
+        "price": "1000"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "total": 4000,
+    "items": [
+      {
+        "name": "banano",
+        "quantity": 1,
+        "price": "3000"
+      },
+      {
+        "name": "mango",
+        "quantity": 1,
+        "price": "1000"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "total": 8000,
+    "items": [
+      {
+        "name": "banano",
+        "quantity": 1,
+        "price": "3000"
+      },
+      {
+        "name": "yuca",
+        "quantity": 1,
+        "price": "5000"
+      }
+    ],
+    "date": "2024-11-05T13:17:51.893Z"
   }
 ]

@@ -8,7 +8,7 @@ body {
 }
 
 h1, h2 {
-    color: #ffcc00; /* Amarillo claro para títulos */
+    color: #cccccc;
     text-align: center;
     margin-top: 20px;
 }
@@ -20,7 +20,7 @@ h1, h2 {
 }
 
 button {
-    background-color: #ff9900; /* Naranja para botones */
+    background-color: hsl(224, 72%, 63%);
     color: #1e1e1e;
     border: none;
     padding: 10px 20px;
@@ -31,7 +31,7 @@ button {
 }
 
 button:hover {
-    background-color: #ffcc00;
+    background-color: hsl(0, 0%, 22%);
 }
 
 input[type="text"], input[type="number"], input[type="password"] {

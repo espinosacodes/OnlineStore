@@ -5,32 +5,12 @@
     "role": "admin"
   },
   {
-    "username": "taxevader007",
-    "password": "0000",
-    "role": "admin"
-  },
-  {
-    "username": "taxevader007",
-    "password": "0000",
-    "role": "admin"
-  },
-  {
-    "username": "taxevader007",
-    "password": "0000",
-    "role": "admin"
-  },
-  {
-    "username": "taxevader007",
-    "password": "0000",
-    "role": "admin"
-  },
-  {
-    "username": "taxevader007",
-    "password": "0000",
-    "role": "admin"
-  },
-  {
     "username": "juan",
+    "password": "0000",
+    "role": "client"
+  },
+  {
+    "username": "cano",
     "password": "0000",
     "role": "client"
   }
