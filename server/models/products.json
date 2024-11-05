@@ -5,5 +5,12 @@
     "description": "una fruta de mango",
     "price": "1000",
     "quantity": "5"
+  },
+  {
+    "id": 2,
+    "name": "banano",
+    "description": "una fruta de banano",
+    "price": "3000",
+    "quantity": "10"
   }
 ]

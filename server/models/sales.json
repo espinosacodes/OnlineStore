@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": 1,
+    "total": "030001000",
+    "items": [
+      {
+        "id": 2,
+        "name": "banano",
+        "description": "una fruta de banano",
+        "price": "3000",
+        "quantity": "10"
+      },
+      {
+        "id": 1,
+        "name": "mango",
+        "description": "una fruta de mango",
+        "price": "1000",
+        "quantity": "5"
+      }
+    ]
+  }
+]
