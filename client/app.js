@@ -70,9 +70,9 @@ function login() {
             localStorage.setItem('token', data.token);
             localStorage.setItem('role', data.role);
             if (data.role === 'admin') {
-                window.location.href = '/cliente/admin'; // Redirigir al panel de administrador
+                window.location.href = 'admin.html';
             } else {
-                window.location.href = '/cliente'; // Redirigir al panel de cliente
+                window.location.href = 'customer.html';
             }
         } else {
             alert(data.message);
@@ -80,7 +80,6 @@ function login() {
     })
     .catch(error => console.error('Error during login:', error));
 }
-
 
 // Mostrar productos solo si el usuario está autenticado
 function showProducts() {

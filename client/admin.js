@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Evento para el botón de cerrar sesión
     document.getElementById('logout').addEventListener('click', () => {
-        localStorage.removeItem('token'); // Elimina el token de autenticación
-        window.location.href = '/'; // Redirige al inicio
+        localStorage.removeItem('token');
+        window.location.href = 'index.html';
     });
 
     // Evento para el botón de agregar producto
@@ -20,52 +20,53 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch('/api/products', {
+            const response = await fetch('http://localhost:3000/api/products', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                 'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify({ name, description, price, quantity }),
+                body: JSON.stringify({ name, description, price, quantity })
             });
 
             if (response.ok) {
                 alert('Producto agregado exitosamente');
                 loadProducts(); // Recargar la lista de productos
             } else {
-                alert('Error al agregar el producto');
+                const errorData = await response.json();
+                alert(errorData.message);
             }
         } catch (error) {
-            console.error('Error:', error);
-            alert('Error al agregar el producto');
+            console.error('Error adding product:', error);
         }
     });
 });
 
-// Función para cargar la lista de productos
+// Función para cargar productos
 async function loadProducts() {
     try {
-        const response = await fetch('/api/products');
-        if (!response.ok) {
-            throw new Error('Error al cargar los productos');
-        }
+        const response = await fetch('http://localhost:3000/api/products', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
 
         const products = await response.json();
         const productList = document.getElementById('productList');
-        productList.innerHTML = ''; // Limpiar la lista antes de cargar los productos
+        productList.innerHTML = '';
 
         products.forEach(product => {
             const productItem = document.createElement('div');
-            productItem.classList.add('product-item');
+            productItem.className = 'product-item';
             productItem.innerHTML = `
                 <h3>${product.name}</h3>
-                <p>Descripción: ${product.description}</p>
+                <p>${product.description}</p>
                 <p>Precio: $${product.price}</p>
                 <p>Cantidad disponible: ${product.quantity}</p>
             `;
             productList.appendChild(productItem);
         });
     } catch (error) {
-        console.error('Error al cargar los productos:', error);
-        alert('Hubo un problema al cargar la lista de productos');
+        console.error('Error loading products:', error);
     }
 }
