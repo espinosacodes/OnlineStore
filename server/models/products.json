@@ -5,7 +5,7 @@
     "description": "una fruta de mango",
     "price": "1000",
     "quantity": 0,
-    "imageUrl": "/server/uploads/mango.png"
+    "imageUrl": "/uploads/mango.png"
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "description": "una fruta de banano",
     "price": "3000",
     "quantity": 5,
-    "imageUrl": "/server/uploads/banano.png"
+    "imageUrl": "/uploads/banano.png"
   },
   {
     "id": 3,
@@ -21,7 +21,7 @@
     "description": "yuca es un tuberculo",
     "price": "5000",
     "quantity": 1,
-    "imageUrl": "/server/uploads/yuca.png"
+    "imageUrl": "/uploads/yuca.png"
   },
   {
     "id": 4,
@@ -29,7 +29,7 @@
     "description": "Mnazana rica y sabrosa ñum ñum",
     "price": "1000",
     "quantity": 0,
-    "imageUrl": "server/uploads/manzana.png"
+    "imageUrl": "/uploads/manzana.png"
   },
   {
     "id": 5,
@@ -37,6 +37,6 @@
     "description": "Un rico emparedado de pollito yomi yomi",
     "price": "7700",
     "quantity": 17,
-    "imageUrl": "server/uploads/mcpollo.png"
+    "imageUrl": "/uploads/mcpollo.png"
   }
 ]
