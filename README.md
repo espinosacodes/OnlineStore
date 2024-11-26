@@ -5,6 +5,10 @@ install
 npm install cors
 
 ```
+```
+npm install bcrypt
+
+```
 
 run with 
 ```

@@ -1,4 +1,3 @@
-
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -17,13 +16,16 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     
     if (response.ok) {
         alert(data.message);
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('role', data.role);
         
-        if (data.role === 'Administrador') {
+        if (data.role === 'admin') {
             window.location.href = 'admin.html';
-        } else if (data.role === 'Cliente') {
-            window.location.href = 'customer.html';
+        } else if (data.role === 'client') {
+            window.location.href = 'products.html';
         }
     } else {
         alert(data.message || 'Error en el inicio de sesión');
     }
+
 });
