@@ -1,4 +1,3 @@
-
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -15,12 +14,16 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
     const data = await response.json();
     
+    console.log('Response data:', data);  // Agrega este log para verificar la respuesta
+    
     if (response.ok) {
         alert(data.message);
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('role', data.role);
         
-        if (data.role === 'Administrador') {
+        if (data.role === 'admin') {
             window.location.href = 'admin.html';
-        } else if (data.role === 'Cliente') {
+        } else if (data.role === 'client') {
             window.location.href = 'customer.html';
         }
     } else {

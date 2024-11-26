@@ -1,17 +1,12 @@
 [
   {
-    "username": "taxevader007",
-    "password": "0000",
-    "role": "admin"
-  },
-  {
     "username": "juan",
-    "password": "0000",
+    "password": "$2b$10$GhBlC1N1.csFbXPYrZqlMOjxdRJqmGNr.1ieZEvi.yyo018WKD6Wa",
     "role": "client"
   },
   {
-    "username": "cano",
-    "password": "0000",
-    "role": "client"
+    "username": "chapa",
+    "password": "$2b$10$whOlDoro7t2PvcxuUsUcQO.OPs5C5dwN14Zf7hDZfHQw27CIHPRiC",
+    "role": "admin"
   }
 ]

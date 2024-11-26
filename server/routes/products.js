@@ -1,41 +1,73 @@
+// routes/products.js
+
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
+const { verifyAdmin } = require('../middleware/authMiddleware');
 
-const productsPath = path.join(__dirname, '../models/products.json');
+const productsFilePath = path.join(__dirname, '../models/products.json');
 
-// Función para leer productos
-function readProducts() {
-    const data = fs.readFileSync(productsPath);
-    return JSON.parse(data);
+// Ensure uploads directory exists
+const uploadDir = path.join(__dirname, '../uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
 }
 
-// Función para escribir productos
-function writeProducts(products) {
-    fs.writeFileSync(productsPath, JSON.stringify(products, null, 2));
-}
-
-// Ruta para obtener productos
-router.get('/', (req, res) => {
-    const products = readProducts();
-    res.json(products);
+// Configure multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
 });
 
-// Ruta para agregar un nuevo producto
-router.post('/', (req, res) => {
-    const { name, description, price, quantity } = req.body;
+const upload = multer({ storage });
 
-    if (!name || !description || !price || !quantity) {
-        return res.status(400).json({ message: 'Todos los campos son obligatorios' });
+// Read products
+function readProducts() {
+  try {
+    if (!fs.existsSync(productsFilePath)) {
+      fs.writeFileSync(productsFilePath, JSON.stringify([]));
     }
+    const data = fs.readFileSync(productsFilePath);
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading products.json:', error);
+    return [];
+  }
+}
 
-    const products = readProducts();
-    const newProduct = { id: products.length + 1, name, description, price, quantity };
-    products.push(newProduct);
-    writeProducts(products);
+// Write products
+function writeProducts(products) {
+  try {
+    fs.writeFileSync(productsFilePath, JSON.stringify(products, null, 2));
+  } catch (error) {
+    console.error('Error writing to products.json:', error);
+  }
+}
 
-    res.status(201).json({ message: 'Producto agregado exitosamente' });
+// Add product route
+router.post('/add', verifyAdmin, upload.single('image'), (req, res) => {
+  const products = readProducts();
+  const newProduct = {
+    id: Date.now(),
+    name: req.body.name,
+    price: req.body.price,
+    image: req.file ? req.file.filename : null,
+  };
+  products.push(newProduct);
+  writeProducts(products);
+  res.status(201).json({ message: 'Product added', product: newProduct });
+});
+
+// Get products route
+router.get('/', (req, res) => {
+  const products = readProducts();
+  res.json(products);
 });
 
 module.exports = router;

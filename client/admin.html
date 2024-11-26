@@ -3,26 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Administrador</title>
 </head>
 <body>
-    <div class="container" id="adminPanel">
-        <h1>Panel de Administración</h1>
-        <button id="logout">Cerrar sesión</button>
+    <h1>Administrador</h1>
+    <form id="product-form">
+        <label for="product-name">Nombre del producto:</label>
+        <input type="text" id="product-name" name="product-name" required>
+        <label for="product-image">Imagen del producto:</label>
+        <input type="file" id="product-image" name="product-image" accept="image/*" required>
+        <button type="submit">Añadir Producto</button>
+    </form>
+    <div id="product-list"></div>
 
-        <h2>Agregar Producto</h2>
-        <div id="productForm">
-            <input type="text" id="productName" placeholder="Nombre del producto">
-            <input type="text" id="productDescription" placeholder="Descripción">
-            <input type="number" id="productPrice" placeholder="Precio">
-            <input type="number" id="productQuantity" placeholder="Cantidad">
-            <button id="addProduct">Agregar Producto</button>
-        </div>
+    <script>
+        document.getElementById('product-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append('name', document.getElementById('product-name').value);
+            formData.append('image', document.getElementById('product-image').files[0]);
 
-        <h2>Lista de Productos</h2>
-        <div id="productList" class="product-list"></div>
-    </div>
-    <script src="admin.js"></script>
+            fetch('/api/products', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Producto añadido exitosamente');
+                    loadProducts();  // Actualiza la lista de productos
+                } else {
+                    alert('Error al añadir el producto');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Función para cargar y mostrar productos
+        function loadProducts() {
+            fetch('/api/products')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Productos:', data);  // Agrega un log para verificar los productos
+                const productList = document.getElementById('product-list');
+                productList.innerHTML = '';
+                data.products.forEach(product => {
+                    const productItem = document.createElement('div');
+                    productItem.innerHTML = `
+                        <h3>${product.name}</h3>
+                        <img src="${product.imageUrl}" alt="${product.name}">
+                    `;
+                    productList.appendChild(productItem);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Cargar productos al cargar la página
+        window.onload = loadProducts;
+    </script>
 </body>
 </html>
