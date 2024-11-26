@@ -26,13 +26,12 @@ function writePurchases(purchases) {
     }
 }
 
-router.post('/purchase', verifyToken, (req, res) => {
-    const { items, total } = req.body;
-
+router.post('/add', (req, res) => {
+    const { userId, productId, quantity, total } = req.body;
     const newPurchase = {
-        id: Date.now(),
-        user: req.user.username,
-        items,
+        userId,
+        productId,
+        quantity,
         total,
         date: new Date()
     };
@@ -44,23 +43,9 @@ router.post('/purchase', verifyToken, (req, res) => {
     res.status(201).json({ message: 'Compra realizada exitosamente', purchase: newPurchase });
 });
 
-router.post('/purchase', verifyToken, (req, res) => {
-    const { items, total } = req.body;
-
-    const newPurchase = {
-        id: Date.now(),
-        user: req.user.username,
-        items,
-        total,
-        date: new Date()
-    };
-
+router.get('/', (req, res) => {
     const purchases = readPurchases();
-    purchases.push(newPurchase);
-    writePurchases(purchases);
-
-    res.status(201).json({ message: 'Compra realizada exitosamente', purchase: newPurchase });
-    
+    res.json(purchases);
 });
 
-module.exports = { router, readPurchases };
+module.exports = router;

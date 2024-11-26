@@ -14,6 +14,8 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
     const data = await response.json();
     
+    console.log('Response data:', data);  // Agrega este log para verificar la respuesta
+    
     if (response.ok) {
         alert(data.message);
         localStorage.setItem('token', data.token);
@@ -22,10 +24,9 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         if (data.role === 'admin') {
             window.location.href = 'admin.html';
         } else if (data.role === 'client') {
-            window.location.href = 'products.html';
+            window.location.href = 'customer.html';
         }
     } else {
         alert(data.message || 'Error en el inicio de sesión');
     }
-
 });

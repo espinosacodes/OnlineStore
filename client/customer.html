@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda</title>
+    <title>Cliente</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Tienda</h1>
+        <h1>Cliente</h1>
         <button id="logout">Cerrar sesión</button>
 
         <h2>Carrito de Compras</h2>
@@ -17,11 +17,54 @@
         <button id="purchase">Realizar Compra</button>
 
         <h2>Lista de Productos</h2>
-        <div id="productList" class="product-list"></div>
+        <div id="product-list" class="product-list"></div>
 
         <h2>Historial de Compras</h2>
         <div id="purchaseHistory"></div>
     </div>
-    <script src="customer.js"></script>
+    <script>
+        // Función para cargar y mostrar productos
+        function loadProducts() {
+            fetch('/api/products')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Productos:', data);  // Agrega un log para verificar los productos
+                const productList = document.getElementById('product-list');
+                productList.innerHTML = '';
+                data.products.forEach(product => {
+                    const productItem = document.createElement('div');
+                    productItem.innerHTML = `
+                        <h3>${product.name}</h3>
+                        <img src="${product.imageUrl}" alt="${product.name}">
+                        <button onclick="buyProduct('${product.id}')">Comprar</button>
+                    `;
+                    productList.appendChild(productItem);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Función para comprar un producto
+        function buyProduct(productId) {
+            fetch(`/api/products/buy/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Producto comprado exitosamente');
+                } else {
+                    alert('Error al comprar el producto');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Cargar productos al cargar la página
+        window.onload = loadProducts;
+    </script>
 </body>
 </html>

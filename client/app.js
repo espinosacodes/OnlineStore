@@ -66,6 +66,7 @@ function login() {
     })
     .then(response => response.json())
     .then(data => {
+        console.log('Response data:', data);  // Agrega un log para verificar la respuesta
         if (data.token) {
             localStorage.setItem('token', data.token);
             localStorage.setItem('role', data.role);
@@ -129,15 +130,18 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
     })
     .then(response => response.json())
     .then(data => {
+        console.log('Response data:', data);  // Agrega un log para verificar la respuesta
         if (data.token) {
             localStorage.setItem('token', data.token);  // Guarda el token
             localStorage.setItem('role', data.role);    // Guarda el rol del usuario
             alert('Login exitoso');
 
             // Redirige según el rol
-            if (data.role === 'Administrador') {
+            if (data.role === 'admin') {
+                console.log('Redirigiendo a la página del administrador');  // Log para verificar la redirección
                 window.location.href = '/client/admin.html';  // Página del administrador
-            } else if (data.role === 'Cliente') {
+            } else if (data.role === 'client') {
+                console.log('Redirigiendo a la página del cliente');  // Log para verificar la redirección
                 window.location.href = '/client/customer.html';  // Página del cliente
             }
         } else {
