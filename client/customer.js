@@ -31,11 +31,12 @@ function displayProducts() {
   productGrid.innerHTML = '';
 
   products.forEach(product => {
+    const fixedImageUrl = product.imageUrl.replace('/server/uploads/', '/uploads/'); // Corrige las rutas
     const productElement = document.createElement('div');
     productElement.classList.add('product-item');
     productElement.innerHTML = `
       <div class="product-image-container">
-        <img src="${product.imageUrl}" alt="${product.name}" class="product-image">
+        <img src="${fixedImageUrl}" alt="${product.name}" class="product-image">
       </div>
       <h3>${product.name}</h3>
       <p>${product.description}</p>
@@ -48,6 +49,7 @@ function displayProducts() {
     productGrid.appendChild(productElement);
   });
 }
+
 
 function addToCart(productId) {
   const product = products.find(p => p.id === productId);

@@ -5,8 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Importar el middleware de autenticación
-const { verifyToken } = require('../middleware/auth');
-
+const { verifyToken } = require('../middleware/authMiddleware');
 const salesPath = path.join(__dirname, '../models/sales.json');
 const productsPath = path.join(__dirname, '../models/products.json');
 
