@@ -1,36 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tienda Online - Cliente</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="store-styles.css">
+  <!-- Enlace a Font Awesome para iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Bienvenido, Cliente</h1>
-      <button onclick="logout()">Cerrar Sesión</button>
-    </header>
+  <header>
+    <h1>Bienvenido a la Tienda</h1>
+    <div class="header-icons">
+      <div id="cart-icon" class="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count" class="cart-count">0</span>
+      </div>
+      <button id="logout-btn" class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+  </header>
 
-    <section class="cart-section">
-      <h2>Carrito de Compras</h2>
-      <div id="cartList">El carrito está vacío</div>
-      <button id="purchase">Realizar Compra</button>
+  <main>
+    <!-- Sección de productos -->
+    <section id="product-grid" class="product-grid">
+      <!-- Los productos se agregarán dinámicamente aquí -->
     </section>
 
-    <section>
-      <h2>Lista de Productos</h2>
-      <div class="product-list" id="productList">
-        <!-- Los productos se mostrarán aquí -->
+    <!-- Modal del carrito de compras -->
+    <section id="cart-modal" class="cart-modal" style="display: none;">
+      <div class="cart-content">
+        <span class="close-cart">&times;</span>
+        <h2>Carrito de Compras</h2>
+        <div id="cart-items"></div>
+        <div id="cart-total"></div>
+        <button id="checkout-btn">Realizar Compra</button>
       </div>
     </section>
 
-    <section>
+    <!-- Sección del historial de compras -->
+    <section id="purchase-history" class="purchase-history">
       <h2>Historial de Compras</h2>
-      <div id="purchaseHistory">No hay compras registradas</div>
+      <div id="history-items"></div>
     </section>
-  </div>
+  </main>
 
   <script src="customer.js"></script>
 </body>

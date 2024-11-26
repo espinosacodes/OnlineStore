@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Panel</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Panel de Administración</title>
+  <link rel="stylesheet" href="store-styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Panel de Administración</h1>
-      <button onclick="logout()">Cerrar Sesión</button>
-    </header>
+  <header>
+    <h1>Panel de Administración</h1>
+    <div class="header-icons">
+      <button id="logout-btn" class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+  </header>
 
+  <main>
     <section class="form-section">
       <h2>Añadir Producto</h2>
       <form id="addProductForm" class="form">
@@ -31,8 +36,9 @@
         <!-- Los productos se mostrarán aquí -->
       </div>
     </section>
-  </div>
+  </main>
 
   <script src="admin.js"></script>
 </body>
 </html>
+

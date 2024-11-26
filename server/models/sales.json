@@ -83,5 +83,101 @@
       }
     ],
     "date": "2024-11-05T13:17:51.893Z"
+  },
+  {
+    "id": 6,
+    "total": 1000,
+    "items": [
+      {
+        "name": "Manzana",
+        "quantity": 1,
+        "price": "1000"
+      }
+    ],
+    "date": "2024-11-26T05:50:02.582Z"
+  },
+  {
+    "id": 7,
+    "total": 5000,
+    "items": [
+      {
+        "name": "mango",
+        "quantity": 5,
+        "price": "1000"
+      }
+    ],
+    "date": "2024-11-26T05:50:18.196Z"
+  },
+  {
+    "id": 8,
+    "total": 3000,
+    "items": [
+      {
+        "name": "banano",
+        "quantity": 1,
+        "price": "3000"
+      }
+    ],
+    "date": "2024-11-26T05:58:30.441Z"
+  },
+  {
+    "id": 9,
+    "total": 3000,
+    "items": [
+      {
+        "name": "banano",
+        "quantity": 1,
+        "price": "3000"
+      }
+    ],
+    "date": "2024-11-26T06:33:36.164Z"
+  },
+  {
+    "id": 10,
+    "total": 5000,
+    "items": [
+      {
+        "name": "yuca",
+        "quantity": 1,
+        "price": "5000"
+      }
+    ],
+    "date": "2024-11-26T06:36:19.219Z"
+  },
+  {
+    "id": 11,
+    "total": 3000,
+    "items": [
+      {
+        "name": "banano",
+        "quantity": 1,
+        "price": "3000"
+      }
+    ],
+    "date": "2024-11-26T06:41:17.802Z"
+  },
+  {
+    "id": 12,
+    "total": 3000,
+    "items": [
+      {
+        "name": "banano",
+        "quantity": 1,
+        "price": "3000"
+      }
+    ],
+    "date": "2024-11-26T06:43:37.841Z"
+  },
+  {
+    "id": 13,
+    "total": 23100,
+    "items": [
+      {
+        "name": "Mc pollito",
+        "quantity": 3,
+        "price": "7700"
+      }
+    ],
+    "date": "2024-11-26T06:53:05.992Z"
   }
 ]

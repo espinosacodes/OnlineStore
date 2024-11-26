@@ -1,39 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Online Store - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online - Inicio de Sesión</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Welcome to the Online Store</h1>
-    </header>
-
     <div class="container">
+        <header>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsUkSbgAY7z2qWAc6vOdLoIIbuiuDkJbni9g&s" alt="Logo de la Tienda" class="logo" id="store-logo">
+            <h1>Bienvenido a la Tienda Online</h1>
+        </header>
+
         <!-- Formulario de Inicio de Sesión -->
-        <div id="login-form">
-            <h2>Login</h2>
-            <input type="text" id="username" placeholder="Username">
-            <input type="password" id="password" placeholder="Password">
-            <button onclick="login()">Login</button>
-            <p>No tienes cuenta? <a href="#" onclick="showRegisterForm()">Regístrate aquí</a></p>
+        <div id="login-form" class="form-section">
+            <h2>Iniciar Sesión</h2>
+            <form class="form">
+                <input type="text" id="username" placeholder="Nombre de usuario" required aria-label="Nombre de usuario">
+                <input type="password" id="password" placeholder="Contraseña" required aria-label="Contraseña">
+                <button type="button" onclick="login()">Iniciar Sesión</button>
+            </form>
+            <div class="toggle-form">
+                <p>¿No tienes cuenta? <a href="#" onclick="showRegisterForm()">Regístrate aquí</a></p>
+            </div>
         </div>
 
         <!-- Formulario de Registro -->
-        <div id="register-form" style="display: none;">
-            <h2>Register</h2>
-            <input type="text" id="register-username" placeholder="Username">
-            <input type="password" id="register-password" placeholder="Password">
-            <select id="register-role">
-                <option value="client">Cliente</option>
-                <option value="admin">Administrador</option>
-            </select>
-            <button onclick="register()">Register</button>
-            <p>Ya tienes cuenta? <a href="#" onclick="showLoginForm()">Inicia sesión</a></p>
+        <div id="register-form" class="form-section" style="display: none;">
+            <h2>Registro</h2>
+            <form class="form">
+                <input type="text" id="register-username" placeholder="Nombre de usuario" required aria-label="Nombre de usuario para registro">
+                <input type="password" id="register-password" placeholder="Contraseña" required aria-label="Contraseña para registro">
+                <div class="role-selector">
+                    <div class="role-option active" data-role="client" tabindex="0" role="radio" aria-checked="true">Cliente</div>
+                    <div class="role-option" data-role="admin" tabindex="0" role="radio" aria-checked="false">Administrador</div>
+                </div>
+                <button type="button" onclick="register()">Registrarse</button>
+            </form>
+            <div class="toggle-form">
+                <p>¿Ya tienes cuenta? <a href="#" onclick="showLoginForm()">Inicia sesión</a></p>
+            </div>
         </div>
+
+        <!-- Error Message Container -->
+        <div id="error-message" class="error-message" role="alert" aria-live="assertive"></div>
     </div>
 
-    <script src="app.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>
+
