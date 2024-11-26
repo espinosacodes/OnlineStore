@@ -29,7 +29,7 @@
     "description": "Mnazana rica y sabrosa ñum ñum",
     "price": "1000",
     "quantity": 0,
-    "imageUrl": "server/uploads/1732597726926-Nate.jpg"
+    "imageUrl": "server/uploads/manzana.png"
   },
   {
     "id": 5,
@@ -37,6 +37,6 @@
     "description": "Un rico emparedado de pollito yomi yomi",
     "price": "7700",
     "quantity": 17,
-    "imageUrl": "server/uploads/1732603970204-DALLÂ·E 2024-10-31 12.12.40 - A top-down view of a delivery bag labeled 'SeÃ±or Wock,' showing a poorly packed, nearly empty box of Chinese fried rice with minimal rice left inside .webp"
+    "imageUrl": "server/uploads/mcpollo.png"
   }
 ]
