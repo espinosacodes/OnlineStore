@@ -5,22 +5,22 @@
     "description": "una fruta de mango",
     "price": "1000",
     "quantity": "5",
-    "imageUrl": "server/uploads/mango.png"
+    "imageUrl": "/server/uploads/mango.png"
   },
   {
     "id": 2,
     "name": "banano",
     "description": "una fruta de banano",
     "price": "3000",
-    "quantity": 9,
-    "imageUrl": "server/uploads/banano.png"
+    "quantity": "9",
+    "imageUrl": "/server/uploads/banano.png"
   },
   {
     "id": 3,
     "name": "yuca",
     "description": "yuca es un tuberculo",
     "price": "5000",
-    "quantity": 2,
-    "imageUrl": "server/uploads/yuca.png"
+    "quantity": "2",
+    "imageUrl": "/server/uploads/yuca.png"
   }
 ]
