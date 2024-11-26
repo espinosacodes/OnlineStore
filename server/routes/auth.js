@@ -75,7 +75,13 @@ router.post('/login', async (req, res) => {
   }
 
   const token = jwt.sign({ username: user.username, role: user.role }, SECRET_KEY, { expiresIn: '1h' });
-  res.json({ message: 'Login successful', token });
+
+  // Enviar token y rol en la respuesta
+  res.json({
+    message: 'Login successful',
+    token,
+    role: user.role,
+  });
 });
 
 // Protected route
