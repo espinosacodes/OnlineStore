@@ -4,33 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Admin Panel - Add Product</h1>
+  <div class="container">
+    <header>
+      <h1>Panel de Administración</h1>
+      <button onclick="logout()">Cerrar Sesión</button>
+    </header>
 
-  <form id="addProductForm">
-    <input type="text" id="name" placeholder="Name" required>
-    <input type="text" id="description" placeholder="Description" required>
-    <input type="number" id="price" placeholder="Price" required>
-    <input type="number" id="quantity" placeholder="Quantity" required>
-    <input type="file" id="image" accept="image/*" required>
-    <button type="submit">Add Product</button>
-  </form>
+    <section class="form-section">
+      <h2>Añadir Producto</h2>
+      <form id="addProductForm" class="form">
+        <input type="text" id="name" placeholder="Nombre del producto" required>
+        <input type="text" id="description" placeholder="Descripción" required>
+        <input type="number" id="price" placeholder="Precio" required>
+        <input type="number" id="quantity" placeholder="Cantidad" required>
+        <input type="file" id="image" accept="image/*" required>
+        <button type="submit">Añadir Producto</button>
+      </form>
+    </section>
 
-  <h2>Product List</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Image</th>
-      </tr>
-    </thead>
-    <tbody id="productTableBody"></tbody>
-  </table>
+    <section>
+      <h2>Lista de Productos</h2>
+      <div class="product-list" id="productTableBody">
+        <!-- Los productos se mostrarán aquí -->
+      </div>
+    </section>
+  </div>
 
   <script src="admin.js"></script>
 </body>

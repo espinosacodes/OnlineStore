@@ -1,26 +1,37 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cliente</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda Online - Cliente</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Bienvenido, Cliente</h1>
-        <button id="logout">Cerrar sesión</button>
+  <div class="container">
+    <header>
+      <h1>Bienvenido, Cliente</h1>
+      <button onclick="logout()">Cerrar Sesión</button>
+    </header>
 
-        <h2>Carrito de Compras</h2>
-        <div id="cartList"></div>
-        <button id="purchase">Realizar Compra</button>
+    <section class="cart-section">
+      <h2>Carrito de Compras</h2>
+      <div id="cartList">El carrito está vacío</div>
+      <button id="purchase">Realizar Compra</button>
+    </section>
 
-        <h2>Lista de Productos</h2>
-        <div id="productList" class="product-list"></div>
+    <section>
+      <h2>Lista de Productos</h2>
+      <div class="product-list" id="productList">
+        <!-- Los productos se mostrarán aquí -->
+      </div>
+    </section>
 
-        <h2>Historial de Compras</h2>
-        <div id="purchaseHistory"></div>
-    </div>
-    <script src="customer.js"></script>
+    <section>
+      <h2>Historial de Compras</h2>
+      <div id="purchaseHistory">No hay compras registradas</div>
+    </section>
+  </div>
+
+  <script src="customer.js"></script>
 </body>
 </html>
